@@ -46,8 +46,11 @@
                 @foreach ($tags as $tag)
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="defaultCheck1" name="tags_id[]" value="{{ $tag->id }}"
-                            checked="{{ in_array($tag->title, $post -> tags() ->pluck('title')->toArray()) ? 'checked' : '' }}"
+                            {{ in_array($tag->title, $post -> tags() ->pluck('title')->toArray()) ? 'checked' : '' }}
                         >
+                        {{-- <input class="form-check-input" type="checkbox" id="defaultCheck1" name="tags_id[]" value="{{ $tag->id }}"
+                            @if(in_array($tag->title, $post -> tags() ->pluck('title')->toArray())) checked @endif
+                        > --}}
                         <label class="form-check-label" for="defaultCheck1">
                             {{ $tag->title }}
                         </label>
