@@ -9,7 +9,7 @@ use App\PostInformation;
 
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class PostController extends Controller
 {
     /**
@@ -51,7 +51,8 @@ class PostController extends Controller
         $post = Post::create($validatePost);
         
         $postInfo = PostInformation::make([
-            'slug'=> $post->title,
+            'slug'=> Str::slug($post->title),
+            // 'slug'=> $post->title,
             'description'=> $validatePost['description']
         ]);
         $postInfo->post()->associate($post);
