@@ -26,7 +26,7 @@
                 @foreach ($posts as $post)
                 <tr>
                     <td>{{ $post->id }}</td>
-                    <td>{{ $post->title }}</td>
+                    <td><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></td>
                     <td>{{ $post->category->title }}</td>
                     <td>{{ \Illuminate\Support\Str::limit($post->postInformation->description, $limit = 30, $end = '...') }}</td>
                     <td>

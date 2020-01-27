@@ -67,7 +67,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        dd('da creare');
+
+        return view('show', ['post' => $post]);
     }
 
     /**
