@@ -7,6 +7,7 @@ use App\Category;
 use App\Tag;
 use App\PostInformation;
 
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -41,20 +42,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $validateData = $request->validate([
-            'title' => 'required',
-            'author' => 'required',
-            'description' => 'required',
-            'category_id' => 'exists:categories,id'
-        ]);
 
-        $post = Post::create($validateData);
+    public function store(PostRequest $request)
+    {
+        // return $request;
+        $validatePost = $request -> validated();
+        $post = Post::create($validatePost);
         
-        $postInfo = new PostInformation;
-        $postInfo->slug = $post->title;
-        $postInfo->description = $validateData['description'];
+        $postInfo = PostInformation::make([
+            'slug'=> $post->title,
+            'description'=> $validatePost['description']
+        ]);
         $postInfo->post()->associate($post);
         $postInfo->save();
 
@@ -95,9 +93,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         //aggiorno il post con tutti i data (lui prenderà solo quelli che interessano alla tabella posts, attraverso la variabile fillable che abbiamo messo nel model)
         $post->update($data);
@@ -108,7 +106,6 @@ class PostController extends Controller
         //ritorniamo alla home
         return redirect()->route('posts.index');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -124,4 +121,40 @@ class PostController extends Controller
 
         return redirect()->back();
     }
+        // public function store(Request $request)
+    // {
+    //     $validateData = $request->validate([
+    //         'title' => 'required',
+    //         'author' => 'required',
+    //         'description' => 'required',
+    //         'category_id' => 'exists:categories,id'
+    //     ]);
+        
+    //     $post = Post::create($validateData);
+        
+    //     $postInfo = PostInformation::make([
+    //         'slug'=> $post->title,
+    //         'description'=> $validateData['description']
+    //     ]);
+    //     $postInfo->post()->associate($post);
+    //     $postInfo->save();
+
+    //     return redirect(route('posts.index'));
+    // }
+
+    // public function update(Request $request, Post $post)
+    // {
+    //     $data = $request->all();
+
+    //     //aggiorno il post con tutti i data (lui prenderà solo quelli che interessano alla tabella posts, attraverso la variabile fillable che abbiamo messo nel model)
+    //     $post->update($data);
+
+    //     //Stessa cosa per i postinformation
+    //     $post->postInformation->update($data);
+
+    //     //ritorniamo alla home
+    //     return redirect()->route('posts.index');
+    // }
+
+
 }
