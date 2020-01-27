@@ -12,20 +12,23 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        //3 categorie statiche
-        $categories = [
-            ['title' => 'Tempo Libero', 'slug' => 'tempo-libero'],
-            ['title' => 'Informatica', 'slug' => 'informatica'],
-            ['title' => 'Viaggi', 'slug' => 'viaggi'],
-        ];
 
-        //cicliamo sulle categorie che vogliamo creare e salviamole
-        foreach ($categories as $category)
-        {
-            $newCategory = new Category;
-            $newCategory->fill($category);
+        factory(Category::class, 4) ->create();
 
-            $newCategory->save();
-        }
+        // //3 categorie statiche
+        // $categories = [
+        //     ['title' => 'Tempo Libero', 'slug' => 'tempo-libero'],
+        //     ['title' => 'Informatica', 'slug' => 'informatica'],
+        //     ['title' => 'Viaggi', 'slug' => 'viaggi'],
+        // ];
+
+        // //cicliamo sulle categorie che vogliamo creare e salviamole
+        // foreach ($categories as $category)
+        // {
+        //     $newCategory = new Category;
+        //     $newCategory->fill($category);
+
+        //     $newCategory->save();
+        // }
     }
 }

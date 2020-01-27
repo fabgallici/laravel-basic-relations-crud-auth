@@ -16,33 +16,52 @@ class PostTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {        
-        //Creiamo 30 nuovi post
-        for ($i=0; $i < 30; $i++) { 
-            //Dati del post base
-            $newPostData = [
-                //prendiamo una categoria random
-                'category_id' => Category::inRandomOrder()->first()->id,
-                'title' => $faker->word,
-                'author' => $faker->name,
-            ];
 
-            //Salviamo i dati base
-            $newPost = new Post;
+        factory(Post::class, 30)
+            ->make()
+            ->each(function($post) {
 
-            $newPost->fill($newPostData);
-            $newPost->save();
+                $category = Category::inRandomOrder() ->first();
+                $post -> category() -> associate($category);
+                $post -> save();
 
-            //Creiamo anche i dati per la relazione one to one (dati aggiuntivi)
-            $postInformation = new PostInformation;
+                $postInformation = factory(PostInformation::class)->make();
+                $postInformation->fill([
+                    'slug' => Str::slug($post->title)
+                ]);
+                $postInformation -> post() -> associate($post->id);
+                $postInformation->save();
 
-            $postInformation->fill([
-                'post_id' => $newPost->id,
-                'description' => $faker->text,
-                'slug' => Str::slug($newPost->title)
-            ]);
+            });
 
-            $postInformation->save();
-        }
+
+        // // Creiamo 30 nuovi post
+        // for ($i=0; $i < 30; $i++) { 
+        //     //Dati del post base
+        //     $newPostData = [
+        //         //prendiamo una categoria random
+        //         'category_id' => Category::inRandomOrder()->first()->id,
+        //         'title' => $faker->word,
+        //         'author' => $faker->name,
+        //     ];
+
+        //     //Salviamo i dati base
+        //     $newPost = new Post;
+
+        //     $newPost->fill($newPostData);
+        //     $newPost->save();
+
+        //     //Creiamo anche i dati per la relazione one to one (dati aggiuntivi)
+        //     $postInformation = new PostInformation;
+
+        //     $postInformation->fill([
+        //         'post_id' => $newPost->id,
+        //         'description' => $faker->text,
+        //         'slug' => Str::slug($newPost->title)
+        //     ]);
+
+        //     $postInformation->save();
+        // }
 
     }
 }
