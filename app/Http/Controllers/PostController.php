@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Category;
+use App\Tag;
+use App\PostInformation;
+
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -27,7 +30,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        dd('da creare');
+        return view('create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -38,7 +43,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd('da creare');
+        $validateData = $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'description' => 'required',
+            'category_id' => 'exists:categories,id'
+        ]);
+
+        $post = Post::create($validateData);
+        
+        $postInfo = new PostInformation;
+        $postInfo->slug = $post->title;
+        $postInfo->description = $validateData['description'];
+        $postInfo->post()->associate($post);
+        $postInfo->save();
+
+        return redirect(route('posts.index'));
     }
 
     /**
