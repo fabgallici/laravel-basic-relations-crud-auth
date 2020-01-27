@@ -32,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         return view('create', [
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ]);
     }
 
@@ -55,6 +56,10 @@ class PostController extends Controller
         ]);
         $postInfo->post()->associate($post);
         $postInfo->save();
+        
+        $tags_id = $validatePost['tags_id'];
+        $tags = Tag::whereIn('id', $tags_id)->get();
+        $post -> tags() -> attach($tags); 
 
         return redirect(route('posts.index'));
     }
@@ -118,6 +123,7 @@ class PostController extends Controller
         //Prima cancello la tabella associata, altrimenti non potrei cancellare post che è la tabella padre
         $post->postInformation->delete();
 
+        $post->tags()->sync([]);
         $post->delete();
 
         return redirect()->back();
