@@ -8,8 +8,9 @@ use App\Category;
 
 
 $factory->define(Category::class, function (Faker $faker) {
+    $title = $faker->sentence($nbWords = rand(1,3), $variableNbWords = true);
     return [
-        'title' => $faker->word,
-        'slug' => $faker->word
+        'title' => $title,
+        'slug' => Str::slug($title)
     ];
 });

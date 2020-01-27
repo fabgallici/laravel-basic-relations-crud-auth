@@ -9,7 +9,7 @@ use App\Post;
 
 $factory->define(Post::class, function (Faker $faker) {
     return [
-        'title' => $faker->word,
+        'title' => $faker->sentence($nbWords = rand(1,3), $variableNbWords = true),
         'author' => $faker->word
     ];
 });
