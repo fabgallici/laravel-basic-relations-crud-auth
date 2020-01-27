@@ -61,7 +61,7 @@ class PostController extends Controller
         $tags_id = $validatePost['tags_id'];
         $tags = Tag::whereIn('id', $tags_id)->get();
         $post -> tags() -> attach($tags); 
-
+          //  dd( in_array('in', $post -> tags() ->pluck('title')->toArray()));
         return redirect(route('posts.index'));
     }
 
@@ -87,7 +87,8 @@ class PostController extends Controller
     {
         $data = [
             'categories' => Category::all(),
-            'post' => $post
+            'post' => $post,
+            'tags' => Tag::all()
         ];
 
         return view('edit', $data);
@@ -109,6 +110,12 @@ class PostController extends Controller
 
         //Stessa cosa per i postinformation
         $post->postInformation->update($data);
+
+        //aggiunta da verificare 
+        $tags_id = $data['tags_id'];
+        $tags = Tag::whereIn('id', $tags_id)->get();
+        $post-> tags()->detach();
+        $post -> tags() -> attach($tags); 
 
         //ritorniamo alla home
         return redirect()->route('posts.index');

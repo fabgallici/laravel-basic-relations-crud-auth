@@ -40,6 +40,20 @@
                     {{ $post->postInformation->description }}
                 </textarea>
             </div>
+
+            <h3>Related Tags</h3>
+            <div class="form-group">
+                @foreach ($tags as $tag)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck1" name="tags_id[]" value="{{ $tag->id }}"
+                            checked="{{ in_array($tag->title, $post -> tags() ->pluck('title')->toArray()) ? 'checked' : '' }}"
+                        >
+                        <label class="form-check-label" for="defaultCheck1">
+                            {{ $tag->title }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
             
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Aggiorna" />
