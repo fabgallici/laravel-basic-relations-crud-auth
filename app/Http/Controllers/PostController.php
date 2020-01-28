@@ -61,7 +61,7 @@ class PostController extends Controller
         $tags_id = $validatePost['tags_id'];
         $tags = Tag::whereIn('id', $tags_id)->get();
         $post -> tags() -> attach($tags); 
-            // dd( in_array('quos', $post -> tags() ->pluck('title')->toArray()));
+            
         return redirect(route('posts.index'));
     }
 
