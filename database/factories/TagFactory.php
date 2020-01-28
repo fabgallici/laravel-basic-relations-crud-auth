@@ -8,7 +8,7 @@ use App\Tag;
 
 $factory->define(Tag::class, function (Faker $faker) {
     return [
-        'title' => $faker->word,
+        'title' => '#'.$faker->word,
         'slug' => $faker->word
     ];
 });

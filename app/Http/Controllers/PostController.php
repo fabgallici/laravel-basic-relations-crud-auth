@@ -57,9 +57,11 @@ class PostController extends Controller
         ]);
         $postInfo->post()->associate($post);
         $postInfo->save();
-        
-        $tags_id = $validatePost['tags_id'];
-        $tags = Tag::whereIn('id', $tags_id)->get();
+        //assoc N a N con tags selezionati
+        $tags_id = $validatePost['tags_id'];       
+        $tags = Tag::find($tags_id);
+        // $tags = Tag::whereIn('id', $tags_id)->get();  //old vers
+
         $post -> tags() -> attach($tags); 
             
         return redirect(route('posts.index'));
@@ -113,9 +115,11 @@ class PostController extends Controller
 
         //aggiunta da verificare 
         $tags_id = $data['tags_id'];
-        $tags = Tag::whereIn('id', $tags_id)->get();
-        $post-> tags()->detach();
-        $post -> tags() -> attach($tags); 
+        $tags = Tag::find($tags_id); //array di tag id
+        $post -> tags() -> sync($tags);
+        // $tags = Tag::whereIn('id', $tags_id)->get(); //old vers
+        // $post-> tags()->detach();
+        // $post -> tags() -> attach($tags); 
 
         //ritorniamo alla home
         return redirect()->route('posts.index');
@@ -128,10 +132,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // $post = Post::findOrFail($id); //non serve perchè Post $post effettua già query in automatico
         //Prima cancello la tabella associata, altrimenti non potrei cancellare post che è la tabella padre
         $post->postInformation->delete();
-
-        $post->tags()->sync([]);
+        $post-> tags()->detach();
+        // $post->tags()->sync([]); //alt vers
         $post->delete();
 
         return redirect()->back();
