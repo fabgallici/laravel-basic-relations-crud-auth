@@ -23,3 +23,11 @@ https://bitbucket.org/booleancareers/laravel-relations
 Route::redirect('/', '/posts');
 
 Route::resource('posts', 'PostController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/posts/{post}/remove/tag/{tag}', 'TagController@remove')->name('post.tag.remove');
+
+

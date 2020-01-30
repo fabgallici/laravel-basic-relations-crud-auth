@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @section('content')
 
@@ -31,7 +31,7 @@
                     <td>{{ \Illuminate\Support\Str::limit($post->postInformation->description, $limit = 30, $end = '...') }}</td>
                     <td>
                         @foreach ($post->tags as $tag)
-                            <span> {{ $tag->title }}, </span>
+                            <span><a class="post-tag-remove" href="{{ route('post.tag.remove', [$post, $tag]) }}">X</a> {{ $tag->title }}, </span>
                         @endforeach                 
                     </td>
                     <td>

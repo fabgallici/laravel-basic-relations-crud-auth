@@ -19,3 +19,18 @@ Il nostro esercizio consisterà nel:
 -   Aggiungere anche i metodi: create, store e show
 -   Aggiungere il seeder dei tag
 -   Aggiungere la validazione lato client e lato back
+
+##Relations
+Category 1 <> N Posts
+Posts N <> N Tags
+Post 1 <> 1 PostInformation
+
+##Possibilità di rimuovere singolo tag da un post(conservando il post stesso)
+
+
+##Authenticantion
+composer require laravel/ui --dev
+
+php artisan ui vue --auth
+
+npm install && npm run dev

@@ -7,15 +7,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
 
-body {
-    padding: 50px 0;
-}
-
-.create {
-    margin: 10px 0 30px;
+.post-tag-remove {
+  font-size: 1.2rem;
+  font-style: italic;
 }
