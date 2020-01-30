@@ -36,3 +36,7 @@ composer require laravel/ui --dev
 php artisan ui vue --auth
 
 npm install && npm run dev
+
+##show create post only if logged, save user_id on related post
+
+##show edit/delete button only for logged related user

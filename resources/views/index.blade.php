@@ -37,13 +37,22 @@
                         @endforeach                 
                     </td>
                     <td>
-                        <a class="btn btn-success" href="{{ route('posts.edit', $post) }}">Aggiorna</a>
+                        @auth
+                            @if ( Auth::user()->id == $post->user->id )
+                                <a class="btn btn-success" href="{{ route('posts.edit', $post) }}">Aggiorna</a>
+                            @endif                         
+                        @endauth
                     </td>
                     <td>
                         <form action="{{ route('posts.destroy', $post) }}" method="post">
                             @method('delete')
                             @csrf
-                            <input class="btn btn-danger" value="Elimina" type="submit">
+                            @auth
+                                @if ( Auth::user()->id == $post->user->id )
+                                    <input class="btn btn-danger" value="Elimina" type="submit">
+                                @endif                         
+                            @endauth
+                            
                         </form>
                     </td>
                 </tr>
