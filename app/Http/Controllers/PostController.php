@@ -6,6 +6,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use App\PostInformation;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
@@ -48,8 +49,11 @@ class PostController extends Controller
     {
         // return $request;
         $validatePost = $request -> validated();
-        $post = Post::create($validatePost);
-        
+        $user = Auth::user();
+        $post = Post::make($validatePost);
+        $post -> user() -> associate($user);
+        $post -> save();
+      
         $postInfo = PostInformation::make([
             'slug'=> Str::slug($post->title),
             // 'slug'=> $post->title,
@@ -57,12 +61,11 @@ class PostController extends Controller
         ]);
         $postInfo->post()->associate($post);
         $postInfo->save();
-        //assoc N a N con tags selezionati
-        $tags_id = $validatePost['tags_id'];       
-        $tags = Tag::find($tags_id);
-        // $tags = Tag::whereIn('id', $tags_id)->get();  //old vers
-
-        $post -> tags() -> attach($tags); 
+        //assoc N a N con tags selezionati    
+        if (isset($validatePost['tags_id'])) {
+            $tags = Tag::find($validatePost['tags_id']); // $tags = Tag::whereIn('id', $validatePost['tags_id'])->get();  //old vers
+            $post -> tags() -> attach($tags);
+        }   
             
         return redirect(route('posts.index'));
     }

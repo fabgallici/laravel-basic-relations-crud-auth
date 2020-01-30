@@ -28,6 +28,7 @@ User 1 <> N Posts
 
 ##Possibilità di rimuovere singolo tag da un post(conservando il post stesso)
 
+##Add user_id on post creation
 
 ##Authenticantion
 composer require laravel/ui --dev
