@@ -10,7 +10,7 @@ class Post extends Model
     protected $table = 'posts';
     
     //Le colonne che vogliamo salvare e editare durante i salvataggi
-    protected $fillable = ['category_id', 'title', 'author'];
+    protected $fillable = ['category_id', 'title', 'author', 'user_id'];
 
     //Un post ha una categoria, una categoria avrà diversi post
     public function postInformation()
@@ -25,6 +25,10 @@ class Post extends Model
 
     public function tags() {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
 }

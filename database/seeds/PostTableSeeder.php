@@ -3,6 +3,7 @@
 use App\Post;
 use App\Category;
 use App\PostInformation;
+use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -23,6 +24,9 @@ class PostTableSeeder extends Seeder
 
                 $category = Category::inRandomOrder() ->first();
                 $post -> category() -> associate($category);
+
+                $user = User::inRandomOrder() ->first();
+                $post -> user() -> associate($user);
                 $post -> save();
 
                 $postInformation = factory(PostInformation::class)->make();

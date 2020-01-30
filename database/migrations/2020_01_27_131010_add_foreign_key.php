@@ -22,6 +22,8 @@ class AddForeignKey extends Migration
             $table -> foreign('post_id', 'post_tag_posts') 
                     -> references('id') 
                     -> on('posts');
+
+            $table -> unique(['tag_id', 'post_id']);
         });
     }
 

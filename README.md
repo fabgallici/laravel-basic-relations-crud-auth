@@ -24,6 +24,7 @@ Il nostro esercizio consisterà nel:
 Category 1 <> N Posts
 Posts N <> N Tags
 Post 1 <> 1 PostInformation
+User 1 <> N Posts
 
 ##Possibilità di rimuovere singolo tag da un post(conservando il post stesso)
 
