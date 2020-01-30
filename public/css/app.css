@@ -11365,3 +11365,8 @@ a.text-dark:focus {
   margin-top: 15px;
 }
 
+.picture_profile {
+  height: 100px;
+  width: 100px;
+}
+

@@ -26,6 +26,11 @@ Posts N <> N Tags
 Post 1 <> 1 PostInformation
 User 1 <> N Posts
 
+##relazione unique tag_id post_id
+usare
+php artisan migrate:fresh --seed
+perchè refresh da errore
+
 ##Possibilità di rimuovere singolo tag da un post(conservando il post stesso)
 
 ##Add user_id on post creation
@@ -40,3 +45,6 @@ npm install && npm run dev
 ##show create post only if logged, save user_id on related post
 
 ##show edit/delete button only for logged related user
+
+#user image
+- ins field 'image' in User table, fillable in model

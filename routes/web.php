@@ -30,4 +30,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/posts/{post}/remove/tag/{tag}', 'TagController@remove')->name('post.tag.remove');
 
+Route::post('/user/image/set', 'ExtraController@setUserImage') -> name('user.image.set');
+
+
 
