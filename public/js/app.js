@@ -49522,10 +49522,29 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// const app = new Vue({
+//     el: '#app',
+// });
 
-var app = new Vue({
-  el: '#app'
-});
+function init() {
+  console.log('hello world');
+  $.ajax({
+    url: "http://localhost:3000/api/post/user",
+    method: "POST",
+    data: {
+      api_token: 'PAUtpH6AViGdmoRmBPHtGzB7XwuhwfAtxx8W05E8ObKcJ8IrRuuiHLulufbKl8qKFFHGztZvOZ6IAIu9'
+    },
+    success: function success(data) {
+      console.log("data", data);
+    },
+    error: function error(_error) {
+      console.log("error", _error);
+    }
+  });
+}
+
+;
+$(document).ready(init);
 
 /***/ }),
 

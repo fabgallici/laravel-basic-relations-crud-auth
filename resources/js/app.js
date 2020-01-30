@@ -27,6 +27,28 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });
+
+function init() {
+    console.log('hello world');
+
+ 
+    $.ajax({
+        url: "http://localhost:3000/api/post/user",
+        method: "POST",
+        data: {
+            api_token: 'PAUtpH6AViGdmoRmBPHtGzB7XwuhwfAtxx8W05E8ObKcJ8IrRuuiHLulufbKl8qKFFHGztZvOZ6IAIu9'
+        },
+        success: function (data) {
+            console.log("data", data);
+        },
+        error: function (error) {
+            console.log("error", error);
+        }
+    });
+
+};
+
+$(document).ready(init);

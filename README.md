@@ -47,4 +47,38 @@ npm install && npm run dev
 ##show edit/delete button only for logged related user
 
 #user image
-- ins field 'image' in User table, fillable in model
+- inserted field 'image' in User table, fillable in model
+- exdtracontroller setUserImage
+- base.blade upload / show image
+
+##API 
+- api token in user factory, users table
+- routes/api.php  route
+
+ExtraController -> testGetToken
+- return response() -> json('hello world'); 
+  Postman: POST http://localhost:8000/api/user/token    //SEND
+-   return response() -> json($data);   
+    Postman: http://localhost:8000/api/user/token  //set keys
+            Body --> x-www-form-urlencoded
+            email: koch.maurice@example.org
+            password: password
+    //dovrebbe tornarmi json con email e password
+- login attempt: Ora proviamo a loggare l'utente, se il login va a buon fine ritorniamo il token
+- POST   http://localhost:8000/api/post/all
+    Route::post('/post/all', 'ExtraController@getAllPost') -> middleware('auth.api');
+    Ricevo tutti i post se fornisco l'api token in Postman
+    Body-->x-www-form-urlencoded
+        Key api_token
+        value 'token' che leggo nel db associato all'user
+
+## ajax (laravel contiene Cors Policies, quindi per accedere con ajax devo farlo all'interno del progetto, o con file.js in public)
+<script src="{{ mix('js/app.js') }}"></script>
+
+vedi chrome inspector-->console
+$.ajax({
+        url: "http://localhost:3000/api/post/all",  // su 8000 dava errore con browsersync?
+-----
+ $.ajax({
+        url: "http://localhost:3000/api/post/user",
+        method: "POST",

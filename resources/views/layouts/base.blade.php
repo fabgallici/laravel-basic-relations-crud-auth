@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script src="{{ mix('js/app.js') }}"></script>
     <title>Post</title>
 </head>
 <body>
@@ -47,6 +48,15 @@
             @auth
               @if(Auth::user() -> image)
                 <img class="picture_profile" src="{{ asset('images/' . Auth::user() -> image) }}">
+              @endif
+            @endauth
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            @auth
+              @if(Auth::user() -> api_token)
+                <p>Api Token: {{ Auth::user() -> api_token }}</p>
               @endif
             @endauth
           </div>
