@@ -17,4 +17,4 @@ mix.js('resources/js/app.js', 'public/js')
       proxy: 'localhost:8000',
       open: false,
       notify: false
-   });;;
+   });

@@ -10,10 +10,11 @@ class ExtraController extends Controller
 {
     public function setUserImage(Request $request) {
 
-        // $data = $request -> all();
+        $data = $request -> all();
         // dd($data);
 
         $file = $request -> file('image');
+        // dd($file);
         $filename = $file -> getClientOriginalName();
 
         // $file -> move('images', $filename);

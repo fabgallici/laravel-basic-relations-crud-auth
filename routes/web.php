@@ -32,6 +32,7 @@ Route::get('/posts/{post}/remove/tag/{tag}', 'TagController@remove')->name('post
 
 Route::post('/user/image/set', 'ExtraController@setUserImage') -> name('user.image.set');
 
-Route::post('/user/token', 'EtraController@testGetToken');
+Route::post('/user/token', 'ExtraController@testGetToken');
 
 
+// also see api routes!!

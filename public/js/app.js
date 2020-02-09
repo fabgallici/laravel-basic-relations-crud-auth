@@ -49529,7 +49529,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 function init() {
   console.log('hello world');
   $.ajax({
-    url: "http://localhost:3000/api/post/user",
+    url: "http://localhost:8000/api/post/user",
     method: "POST",
     data: {
       api_token: 'PAUtpH6AViGdmoRmBPHtGzB7XwuhwfAtxx8W05E8ObKcJ8IrRuuiHLulufbKl8qKFFHGztZvOZ6IAIu9'

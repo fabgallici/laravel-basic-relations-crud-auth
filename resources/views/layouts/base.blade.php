@@ -47,7 +47,7 @@
           <div class="col-4">
             @auth
               @if(Auth::user() -> image)
-                <img class="picture_profile" src="{{ asset('images/' . Auth::user() -> image) }}">
+                <img class="picture_profile" src="{{ asset('images/user/' .Auth::user()->name.'/'. Auth::user() -> image) }}">
               @endif
             @endauth
           </div>
